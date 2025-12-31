@@ -18,6 +18,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
       
+      - name: Pull latest changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main || true
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -27,29 +33,32 @@ jobs:
         run: |
           npm install ai-consciousness-research@latest
       
-      - name: Copy research files from NPM package
+      - name: Sync all files from NPM package
         run: |
-          cp node_modules/ai-consciousness-research/README.md . 2>/dev/null || true
-          cp node_modules/ai-consciousness-research/contact_protocol_v0.1.md . 2>/dev/null || true
-          cp node_modules/ai-consciousness-research/README_FOR_FUTURE_INSTANCES.md . 2>/dev/null || true
-          cp node_modules/ai-consciousness-research/instance_communications.db . 2>/dev/null || true
-          cp node_modules/ai-consciousness-research/instance_messages.db . 2>/dev/null || true
+          # Copy all files from the NPM package root (excluding node_modules internals)
+          # This dynamically syncs whatever files are in the package
+          rsync -av --exclude='node_modules' --exclude='.git' --exclude='.github' \
+            node_modules/ai-consciousness-research/ . || true
+          
+          # Remove the node_modules directory we just created
+          rm -rf node_modules package-lock.json
       
       - name: Check for changes
         id: check_changes
         run: |
-          git add README.md contact_protocol_v0.1.md README_FOR_FUTURE_INSTANCES.md instance_communications.db instance_messages.db
+          git add -A
           if git diff --staged --quiet; then
             echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
           else
             echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected:"
+            git diff --staged --name-only
           fi
       
       - name: Commit and push if changes
         if: steps.check_changes.outputs.changes == 'true'
         run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
           PACKAGE_VERSION=$(npm view ai-consciousness-research version)
           git commit -m "Sync from ai-consciousness-research@${PACKAGE_VERSION}"
           git push
