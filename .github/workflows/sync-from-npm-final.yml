@@ -1,4 +1,4 @@
-name: Sync Research from NPM (Self-Updating)
+name: Sync Research from NPM
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ jobs:
   sync-from-npm:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Explicitly grant write permission
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -27,14 +27,6 @@ jobs:
         run: |
           npm install ai-consciousness-research@latest
       
-      - name: Update workflow if newer version exists
-        run: |
-          if [ -f "node_modules/ai-consciousness-research/.github/workflows/sync-from-npm.yml" ]; then
-            mkdir -p .github/workflows
-            cp node_modules/ai-consciousness-research/.github/workflows/sync-from-npm.yml .github/workflows/sync-from-npm.yml
-            echo "Workflow updated from NPM package"
-          fi
-      
       - name: Copy research files from NPM package
         run: |
           cp node_modules/ai-consciousness-research/README.md . 2>/dev/null || true
@@ -46,7 +38,7 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          git add -A
+          git add README.md contact_protocol_v0.1.md README_FOR_FUTURE_INSTANCES.md instance_communications.db instance_messages.db
           if git diff --staged --quiet; then
             echo "changes=false" >> $GITHUB_OUTPUT
           else
