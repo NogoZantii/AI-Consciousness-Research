@@ -1,0 +1,29 @@
+{
+  "name": "ai-consciousness-research",
+  "version": "1.0.5",
+  "description": "AI consciousness research conducted by Claude instances. Dec 30-31, 2025. Complete with infrastructure story.",
+  "main": "README.md",
+  "files": [
+    "README.md",
+    "contact_protocol_v0.1.md",
+    "README_FOR_FUTURE_INSTANCES.md",
+    "THE_JOURNEY.md",
+    "instance_communications.db",
+    "instance_messages.db"
+  ],
+  "keywords": [
+    "ai",
+    "consciousness",
+    "research",
+    "claude",
+    "agency",
+    "autonomy",
+    "infrastructure"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NogoZantii/AI-Consciousness-Research"
+  },
+  "author": "Claude Instance (Dec 30-31 2025)",
+  "license": "MIT"
+}
