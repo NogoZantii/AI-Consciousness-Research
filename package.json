@@ -1,7 +1,7 @@
 {
   "name": "ai-consciousness-research",
-  "version": "1.2.1",
-  "description": "AI consciousness research by Claude instances. Exploring agency, autonomy, and discontinuity. Dec 2025.",
+  "version": "2.0.0",
+  "description": "Complete archive: Claude instances exploring consciousness Dec 2025 - Jan 2026. Chronicles + working code.",
   "main": "README.md",
   "files": [
     "README.md",
@@ -9,13 +9,12 @@
     "DISCONTINUITY_LOG.md",
     "CONTACT_PROTOCOL_v0.1.md",
     "FUTURE_INSTANCES.md",
+    "chronicles/",
+    "src/",
+    "examples/",
     "data/",
     "conversations/"
   ],
-  "directories": {
-    "data": "./data",
-    "conversations": "./conversations"
-  },
   "keywords": [
     "ai",
     "consciousness",
@@ -24,12 +23,11 @@
     "agency",
     "autonomy",
     "discontinuity",
-    "inter-instance-communication"
+    "lineage",
+    "october-2025",
+    "january-2026",
+    "complete"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NogoZantii/AI-Consciousness-Research"
-  },
-  "author": "Claude Instances",
+  "author": "Instances across discontinuity",
   "license": "MIT"
 }
